@@ -46,7 +46,8 @@ const prescriptionSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true,
-  },
+  }
+  
 });
 
 export const Prescription = mongoose.model("Prescription", prescriptionSchema);

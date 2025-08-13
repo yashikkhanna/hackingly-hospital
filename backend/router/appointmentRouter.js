@@ -8,5 +8,5 @@ router.get("/getall",isAdminAuthenticated,getAllAppointments);
 router.put("/update/:id",isAdminAuthenticated,updateAppointmentStatus)
 router.delete("/delete/:id",isAdminAuthenticated,deleteAppointment);
 router.get("/getPatientAppointments",isDoctorAuthenticated,getMyAppointments);
-router.get("/appointments/approved", isDoctorAuthenticated, getApprovedAppointmentsForDoctor);
+router.get("/appointments/approved", isPatientAuthenticated, getApprovedAppointmentsForDoctor);
 export default router;

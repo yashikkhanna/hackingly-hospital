@@ -12,6 +12,12 @@ import Footer from "./components/Footer";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import { Context } from "./main";
+import CreatePrescriptionForm from "./components/CreatePrescriptionForm";
+import MyDetails from "./Pages/MyDetails";
+import DoctorAppointments from "./components/DoctorAppointments.jsx";
+import DonationCentersList from "./Pages/DonationCentersList.jsx";
+import CompatibleDonors from "./components/CompatibleDonors.jsx";
+// import DiabetesForm from "./components/DiabetesForm";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
@@ -47,6 +53,11 @@ const App = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<MyDetails />} />
+          <Route path="/prescriptions" element={<DoctorAppointments />} />
+          <Route path="/prescription/:appointmentId" element={isAuthenticated? <CreatePrescriptionForm /> : <Navigate to="/login"/>} />
+          <Route path="/getBlood" element={isAuthenticated ? <CompatibleDonors/> : <Navigate to="/login" />}></Route>
+          <Route path="/donationCentersList" element={isAuthenticated ? <DonationCentersList /> : <Navigate to="/login" />} />
         </Routes>
         <Footer />
         <ToastContainer position="top-center" />

@@ -10,6 +10,7 @@ import userRouter from "./router/userRouter.js";
 import appointmentRouter from "./router/appointmentRouter.js";
 import prescriptionRouter from "./router/prescriptionRouter.js";
 import DonationRouter from "./router/donationRoutes.js"
+import addRouter from "./router/addRoutes.js"
 const app = express();
 
 config({ path: "./config/config.env" });
@@ -33,6 +34,7 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/appointment", appointmentRouter);
 app.use("/api/v1/prescription",prescriptionRouter);
 app.use("/api/v1/donation",DonationRouter);
+app.use("/api/v1/addRoute" , addRouter)
 dbConnection();
 app.use(errorMiddleware);
 

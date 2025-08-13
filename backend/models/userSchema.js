@@ -4,6 +4,11 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+const giftCardSchema = new mongoose.Schema({
+  code: String,
+  issuedAt: { type: Date, default: Date.now },
+  redeemed: { type: Boolean, default: false },
+});
 const userSchema = new mongoose.Schema(
   {
     // Basic Info
@@ -104,25 +109,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
     },
-    lastDonationDate: Date,
-
-    // Blood Donation Stats
-    badges: [String],
-    streakCount: { type: Number, default: 0 },
-    totalDonations: { type: Number, default: 0 },
-    donations: [
-      {
-        date: { type: Date, required: true },
-        center: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Donation",
-        },
-      },
-    ],
-  },
-  { timestamps: true }
-);
-
+    totalDonations: { type: Number, default: 0, index: true },
+  badges: [{ type: String }],               // e.g. ["FIRST_DROP","FIVE_LIFESAVER","TEN_HERO",...]
+  giftCards: [giftCardSchema],              // issued gift cards
+}, { timestamps: true });
+  
 // Password Hashing
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();

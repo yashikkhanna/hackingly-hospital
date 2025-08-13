@@ -144,10 +144,10 @@ export const getMyAppointments = async (req, res) => {
 };
 
 export const getApprovedAppointmentsForDoctor = catchAsyncErrors(async (req, res, next) => {
-  const doctorId = req.user._id; // from isDoctorAuthenticated middleware
+  const patientId= req.user._id; 
 
   const appointments = await Appointment.find({
-    doctorId: doctorId,
+    patientId: patientId,
     status: "Accepted"
   })
     .populate("patientId", "firstName lastName email")

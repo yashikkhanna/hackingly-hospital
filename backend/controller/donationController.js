@@ -1,5 +1,7 @@
 import { Donation } from "../models/donationSchema.js";
 import { DonationRequest } from "../models/DonationRequestSchema.js";
+import { DonationHistory } from "../models/donationHistorySchema.js";
+
 import { User } from "../models/userSchema.js";
 import {catchAsyncErrors} from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/errorMiddleware.js"
@@ -215,4 +217,23 @@ export const getDonationHistory = catchAsyncErrors(async (req, res, next) => {
   if (!user) return next(new ErrorHandler("User not found", 404));
 
   res.status(200).json({ success: true, donations: user.donations });
+});
+
+// 📌 1. Receiver requests blood
+export const requestBlood = catchAsyncErrors(async (req, res, next) => {
+  const { bloodGroup, centerId, neededBy } = req.body;
+
+  const request = await DonationRequest.create({
+    requester: req.user._id,
+    bloodGroup,
+    center: centerId,
+    neededBy,
+    status: "PENDING"
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "Blood request created successfully",
+    request
+  });
 });

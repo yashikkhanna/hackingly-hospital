@@ -47,8 +47,7 @@ function App() {
             element={isAuthenticated ? <MyAppointments /> : <Navigate to="/login"/>}
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/prescriptions" element={isAuthenticated? <DoctorAppointments/> : <Navigate to="/login"/>} />
-          <Route path="/prescription/:appointmentId" element={isAuthenticated? <CreatePrescriptionForm /> : <Navigate to="/login"/>} />
+          
       </Routes>
       <ToastContainer position="top-center" />
     </Router>
